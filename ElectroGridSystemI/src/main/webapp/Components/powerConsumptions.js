@@ -143,7 +143,35 @@ function onPowerConsumptionDeleteComplete(response, status)
 // CLIENT-MODEL================================================================
 function validatePowerConsumptionForm() 
 { 
+ 
+  //Unit Description-----------------------------------------------------------
+  if ($("#unitDescription").val().trim() == "") 
+  { 
+    return "Insert Unit Description Details."; 
+  } 
 
+  //Unit Price------------------------------------------------------------------
+  if ($("#unitPrice").val().trim() == "") 
+  { 
+    return "Insert Charge Per Unit (Unit Price)."; 
+  } 
+
+  // is numerical value(Unit Price)---------------------------------------------
+  var tmpPrice = $("#unitPrice").val().trim(); 
+  if (!$.isNumeric(tmpPrice)) 
+  { 
+     return "Insert a numerical value for Charge Per Unit (Unit Price)."; 
+  }
+  
+  // Check Unit Price is greater than zero---------------------------------------
+  else if (tmpPrice <= 0.00) 
+  { 
+     return "Insert greater than zero values to Charge Per Unit (Unit Price)."; 
+  }
+    
+  // convert to decimal(Unit Price)----------------------------------------------
+  $("#unitPrice").val(parseFloat(tmpPrice).toFixed(2)); 
+ 
    return true; 
   
 }
